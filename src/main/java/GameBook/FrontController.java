@@ -42,6 +42,7 @@ public class FrontController {
 		
 	}
 
+	
 	private boolean createNewBook() {
 		String bookTitle = "";
 		
