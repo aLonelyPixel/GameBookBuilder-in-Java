@@ -3,12 +3,12 @@ package domains;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Book {
+public class GameBook {
 
 	private final String bookTitle;
 	private final Map<String, Paragraph> paragraphMap;
 
-	public Book(final String bookTitle) {
+	public GameBook(final String bookTitle) {
 		this.bookTitle = bookTitle;
 		paragraphMap = new HashMap<String, Paragraph>();
 	}

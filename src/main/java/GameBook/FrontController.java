@@ -1,12 +1,12 @@
 package GameBook;
 
 import consoles.Console;
-import domains.Book;
+import domains.GameBook;
 
 public class FrontController {
 	
 	private final Console console;
-	private Book book;
+	private GameBook gameBook;
 	private boolean bookExists = false;
 
 	public FrontController(final Console console) {
@@ -17,19 +17,26 @@ public class FrontController {
 		String userChoice = "";
 		do {
 			console.printLine("\nMENU\nQue voulez-vous faire?");
-			userChoice = console.readLine("1. [C]réer une livre\n2. [Q]uitter\n");
+			userChoice = console.readLine("1. [C]réer une livre\n2.[M]odifier un livre\n3. [Q]uitter\n");
 			switch (userChoice.toLowerCase()) {
 			case "c":
 				if (!bookExists) {
 					createNewBook();
-					printNewBook(book.getBookTitle());
+					printBook();
 				}else {
 					userChoice = console.readLine("Vous avez déjà un livre en cours de création !\nSi vous créez un nouveau livre le livre"
 							+ " précédent sera perdu. Voulez vous continuer [O/N]?");
 					if (userChoice.equalsIgnoreCase("o")) {
 						createNewBook();
-						printNewBook(book.getBookTitle());
+						printBook();
 					}
+				}
+				break;
+			case "m":
+				if (bookExists) {
+					printBook();
+				}else {
+					console.printLine("Attention! Vous n'avez pas encore crée de GameBook !\n");
 				}
 				break;
 			case "q":
@@ -48,19 +55,19 @@ public class FrontController {
 		
 		do {
 			bookTitle = console.readLine("Titre du livre? ");
-			book = new Book(bookTitle);
+			gameBook = new GameBook(bookTitle);
 			console.printLine("Votre livre à été crée avec succès !");
 			bookExists = true;
 			return true;
 		} while (bookTitle.equals("")||bookTitle.isEmpty());
 	}
 	
-	private void printNewBook(String bookTitle) {
-		console.printLine("\n\t\t"+bookTitle);
-		if (this.book.isEmpty()) {
+	private void printBook() {
+		console.printLine("\n\t\t"+gameBook.getBookTitle());
+		if (this.gameBook.isEmpty()) {
 			console.printLine("\n\t(Aucun paragraphe)");
 		}else {
-			this.book.getFirstParagraph();
+			this.gameBook.getFirstParagraph();
 		}
 	}
 }
