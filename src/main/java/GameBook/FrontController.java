@@ -18,13 +18,14 @@ public class FrontController {
 		String userChoice = "";
 		do {
 			console.printLine("\nMENU\nQue voulez-vous faire?");
-			userChoice = console.readLine("1. [C]réer une livre\n2.[M]odifier un livre\n3. [Q]uitter\n");
+			userChoice = console.readLine("1. [C]réer une livre\n2. [M]odifier un livre\n3. [Q]uitter\n");
 			switch (userChoice.toLowerCase()) {
 			case "c":
 				userChoice = createNewGameBook(userChoice);
 				break;
 			case "m":
-				modifyGameBook();
+				commandMap.get("modify").execute();
+//				modifyGameBook();
 				break;
 			case "q":
 				commandMap.get("exit").execute();;
