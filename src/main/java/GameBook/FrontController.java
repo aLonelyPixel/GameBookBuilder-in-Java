@@ -1,16 +1,17 @@
 package GameBook;
 
+import commands.CommandMap;
 import consoles.Console;
-import domains.GameBook;
 
 public class FrontController {
 	
 	private final Console console;
-	private GameBook gameBook;
+	private final CommandMap commandMap;
 	private boolean bookExists = false;
 
-	public FrontController(final Console console) {
+	public FrontController(final Console console, final CommandMap commandMap) {
 		this.console = console;
+		this.commandMap = commandMap;
 	}
 	
 	public void menuLoop() {
@@ -20,28 +21,13 @@ public class FrontController {
 			userChoice = console.readLine("1. [C]réer une livre\n2.[M]odifier un livre\n3. [Q]uitter\n");
 			switch (userChoice.toLowerCase()) {
 			case "c":
-				if (!bookExists) {
-					createNewBook();
-					printBook();
-				}else {
-					userChoice = console.readLine("Vous avez déjà un livre en cours de création !\nSi vous créez un nouveau livre le livre"
-							+ " précédent sera perdu. Voulez vous continuer [O/N]?");
-					if (userChoice.equalsIgnoreCase("o")) {
-						createNewBook();
-						printBook();
-					}
-				}
+				userChoice = createNewGameBook(userChoice);
 				break;
 			case "m":
-				if (bookExists) {
-					printBook();
-				}else {
-					console.printLine("Attention! Vous n'avez pas encore crée de GameBook !\n");
-				}
+				modifyGameBook();
 				break;
 			case "q":
-				console.printLine("Au revoir !");
-				System.exit(0);
+				commandMap.get("exit").execute();;
 			default:
 				break;
 			}
@@ -49,25 +35,25 @@ public class FrontController {
 		
 	}
 
-	//This is a comment test
-	private boolean createNewBook() {
-		String bookTitle = "";
-		
-		do {
-			bookTitle = console.readLine("Titre du livre? ");
-			gameBook = new GameBook(bookTitle);
-			console.printLine("Votre livre à été crée avec succès !");
+	private String createNewGameBook(String userChoice) {
+		if (!bookExists) {
+			commandMap.get("create book").execute();
 			bookExists = true;
-			return true;
-		} while (bookTitle.equals("")||bookTitle.isEmpty());
+		}else {
+			userChoice = console.readLine("Vous avez déjà un livre en cours de création !\nSi vous créez un nouveau livre le livre"
+					+ " précédent sera perdu. Voulez vous continuer [O/N]?");
+			if (userChoice.equalsIgnoreCase("o")) {
+				commandMap.get("create book").execute();
+			}
+		}
+		return userChoice;
 	}
 	
-	private void printBook() {
-		console.printLine("\n\t\t"+gameBook.getBookTitle());
-		if (this.gameBook.isEmpty()) {
-			console.printLine("\n\t(Aucun paragraphe)");
+	private void modifyGameBook() {
+		if (bookExists) {
+			console.printLine("NOT IMPLEMENTED");
 		}else {
-			this.gameBook.getFirstParagraph();
+			console.printLine("Attention! Vous n'avez pas encore crée de GameBook !\n");
 		}
 	}
 }
