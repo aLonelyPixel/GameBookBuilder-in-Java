@@ -52,4 +52,5 @@ public abstract class Command {
 	 * Abstract method that will be completed for each individual type of Command
 	 */
 	public abstract void execute();
+	
 }

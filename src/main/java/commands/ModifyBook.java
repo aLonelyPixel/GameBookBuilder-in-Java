@@ -7,6 +7,7 @@ public class ModifyBook extends Command{
 	
 	final Console console;
 	final BookEditor bookEditor;
+	
 
 	public ModifyBook(final Console console, final BookEditor bookEditor) {
 		super("modify", "Modifies a GameBook");
@@ -16,9 +17,14 @@ public class ModifyBook extends Command{
 
 	@Override
 	public void execute() {
-		console.printLine(bookEditor.getGameBookTitle());
-		
+		console.printLine("woooooooooooooo");
 	}
 
-	
+//	public void printBook() {
+//		console.printLine("\nVotre livre à été crée avec succès !");
+//		console.printLine("\n\t\t"+bookEditor.getGameBookTitle());
+//		if (bookEditor.gameBookisEmpty()) {
+//			console.printLine("\n\t(Aucun paragraphe)");
+//		}
+//	}
 }
