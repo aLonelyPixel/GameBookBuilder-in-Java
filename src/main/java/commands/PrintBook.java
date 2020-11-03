@@ -2,37 +2,37 @@ package commands;
 
 import java.util.Iterator;
 
-import GameBook.BookEditor;
+import GameBook.MainPresentationModel;
 import consoles.Console;
 import domains.Choice;
 import domains.Paragraph;
 
-public class PrintBookCommand extends Command{
+public class PrintBook extends Command{
 
 	final Console console;
-	final BookEditor bookEditor;
+	final MainPresentationModel mpModel;
 	
 
-	public PrintBookCommand(final Console console, final BookEditor bookEditor) {
+	public PrintBook(final Console console, final MainPresentationModel mpModel) {
 		super("print", "Prints the content of a GameBook");
 		this.console = console;
-		this.bookEditor = bookEditor;
+		this.mpModel = mpModel;
 	}
 
 	@Override
 	public void execute() {
-		console.printLine("\n\t\t"+bookEditor.getGameBookTitle());
-		if (bookEditor.gameBookisEmpty()) {
+		console.printLine("\n\t\t"+mpModel.getGameBookTitle());
+		if (mpModel.gameBookisEmpty()) {
 			console.printLine("\n\t(Aucun paragraphe)\n");
 		}else {
-			Iterator<Paragraph> paragraphIterator = bookEditor.iterator();
+			Iterator<Paragraph> paragraphIterator = mpModel.iterator();
 			while (paragraphIterator.hasNext()) {
 				Paragraph thisParagraph = paragraphIterator.next();
 				Iterator<Choice> choiceIterator = thisParagraph.iterator();
 				console.print("\n\t§" + thisParagraph.getIndex() + "\t" + shortenParagraphText(thisParagraph.getParagraphText(), 25) + "\t");
 				while (choiceIterator.hasNext()) {
 					Choice thisChoice = choiceIterator.next();
-					console.print(ShortenChoiceText(thisChoice.getText(), 10) + thisChoice.getDestParagraph() + "- ");
+					console.print(ShortenChoiceText(thisChoice.getText(), 10) + " " +thisChoice.getDestParagraph() + "- ");
 				}
 			}
 		}

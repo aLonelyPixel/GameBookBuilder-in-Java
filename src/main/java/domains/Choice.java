@@ -7,14 +7,13 @@ public class Choice {
 	private int destParagraph;
 	
 	public Choice(final int index, final String text, final int destParagraph) {
-		this.index = index;
+		this.index = (index < 0) ? 0 : index;
 		this.text = text;
-		if (destParagraph == Integer.MIN_VALUE) {
-			this.destParagraph = 0;
-		}else {
-			this.destParagraph = destParagraph;
-		}
-		
+		this.destParagraph = (destParagraph < 0) ? 0 : destParagraph;
+	}
+
+	public void setIndex(int index) {
+		this.index = index;
 	}
 
 	public int getIndex() {
@@ -24,9 +23,21 @@ public class Choice {
 	public String getText() {
 		return text;
 	}
+	
+	public void setText(String text) {
+		this.text = text;
+	}
 
 	public int getDestParagraph() {
 		return destParagraph;
 	}
-	
+
+	public void setDestParagraph(int destParagraph) {
+		this.destParagraph = destParagraph;
+	}
+
+	public void shiftBackDestParagraph() {
+		this.destParagraph--;
+	}
+
 }

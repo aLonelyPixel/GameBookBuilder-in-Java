@@ -1,18 +1,18 @@
 package commands;
 
-import GameBook.BookEditor;
+import GameBook.MainPresentationModel;
 import consoles.Console;
 
 public class ModifyBook extends Command{
 	
 	final Console console;
-	final BookEditor bookEditor;
+	final MainPresentationModel mpModel;
 	
 
-	public ModifyBook(final Console console, final BookEditor bookEditor) {
+	public ModifyBook(final Console console, final MainPresentationModel mpModel) {
 		super("modify", "Modifies a GameBook");
 		this.console = console;
-		this.bookEditor = bookEditor;
+		this.mpModel = mpModel;
 	}
 
 	@Override

@@ -2,11 +2,11 @@ package commands;
 
 import consoles.Console;
 
-public class ExitCommand extends Command{
+public class Exit extends Command{
 	
 	private final Console console;
 
-	public ExitCommand(final Console console) {
+	public Exit(final Console console) {
 		super("exit", "Exits the program");
 		this.console = console;
 	}

@@ -1,17 +1,17 @@
 package commands;
 
-import GameBook.BookEditor;
+import GameBook.MainPresentationModel;
 import consoles.Console;
 
-public class ModifyBookTitleCommand extends Command{
+public class ModifyBookTitle extends Command{
 
 	final Console console;
-	final BookEditor bookEditor;
+	final MainPresentationModel mpModel;
 
-	public ModifyBookTitleCommand(final Console console, final BookEditor bookEditor) {
+	public ModifyBookTitle(final Console console, final MainPresentationModel mpModel) {
 		super("modify title", "Modifies the title of a GameBook");
 		this.console = console;
-		this.bookEditor = bookEditor;
+		this.mpModel = mpModel;
 	}
 
 	@Override
@@ -19,7 +19,7 @@ public class ModifyBookTitleCommand extends Command{
 		String newTitle = "";
 		newTitle = console.readLine("Quel sera le nouveau titre du GameBook ? ");
 		if (!newTitle.equals("")) {
-			bookEditor.setTitle(newTitle);
+			mpModel.setTitle(newTitle);
 		}else {
 			console.printLine("Le titre du GameBook n'a pas été modifié\n");
 		}

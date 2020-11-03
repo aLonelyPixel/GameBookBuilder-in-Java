@@ -18,7 +18,7 @@ public class FrontController {
 		String userChoice = "";
 		do {
 			console.printLine("MENU\n");
-			userChoice = console.readLine("1. [C]réer une livre\n2. [M]odifier un livre\n3. [Q]uitter\n");
+			userChoice = console.readLine("1. [C]réer une livre\n2. [M]odifier un livre\n3. [V]érifier un livre\n4. [Q]uitter\n");
 			
 			switch (userChoice.toLowerCase()) {
 			case "c":
@@ -28,10 +28,13 @@ public class FrontController {
 			case "m":
 				modifyGameBook();
 				break;
+			case "v":
+				commandMap.get("verify").execute();
+				break;
 			case "q":
 				commandMap.get("exit").execute();;
 			default:
-				console.print("Choix invalide dans le menu");
+				console.printLine("Choix invalide dans le menu");
 				break;
 			}
 		} while (!"q".equalsIgnoreCase(userChoice));
@@ -43,7 +46,7 @@ public class FrontController {
 			
 			do {
 				commandMap.get("print").execute();
-				console.printLine("\nMENU DE MODIFICATIONS\n");
+				console.printLine("\n\nMENU DE MODIFICATIONS\n");
 				userModifyingChoice = console.readLine("1. Modifier le titre du livre\n2. Ajouter un nouveau paragraphe\n3. Modifier un paragraphe existant\n"
 						+ "4. Supprimer un paragraphe\n5. Arrêter la modification\n");
 				
@@ -53,6 +56,12 @@ public class FrontController {
 					break;
 				case "2":
 					commandMap.get("add paragraph").execute();					
+					break;
+				case "3":
+					commandMap.get("modifyParagraph").execute();					
+					break;
+				case "4":
+					commandMap.get("delete paragraph").execute();					
 					break;
 				case "5":
 					userModifyingChoice = "exit";

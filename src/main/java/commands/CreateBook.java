@@ -1,23 +1,23 @@
 package commands;
 
-import GameBook.BookEditor;
+import GameBook.MainPresentationModel;
 import consoles.Console;
 
-public class CreateBookCommand extends Command{
+public class CreateBook extends Command{
 
 	final Console console;
-	final BookEditor bookEditor;
+	final MainPresentationModel mpModel;
 
-	public CreateBookCommand(final Console console, final BookEditor bookEditor) {
+	public CreateBook(final Console console, final MainPresentationModel mpModel) {
 		super("create book", "Creates a new GameBook");
 		this.console = console;
-		this.bookEditor = bookEditor;
+		this.mpModel = mpModel;
 	}
 
 	@Override
 	public void execute() {
 		String userChoice = "";
-		if (bookEditor.bookExists()) {
+		if (mpModel.bookExists()) {
 			userChoice = console.readLine("Vous avez déjà un livre en cours de création !\nSi vous créez un nouveau livre le livre"
 					+ " précédent sera perdu. Voulez vous continuer [O/N]? ");
 		}
@@ -26,7 +26,7 @@ public class CreateBookCommand extends Command{
 			String bookTitle = "";
 			do {
 				bookTitle = console.readLine("Titre du livre? ");
-				bookEditor.setTitle(bookTitle);
+				mpModel.setTitle(bookTitle);
 				printBook();
 			} while (bookTitle.equals("")||bookTitle.isEmpty());
 		}
@@ -34,8 +34,8 @@ public class CreateBookCommand extends Command{
 	
 	public void printBook() {
 		console.printLine("\nVotre livre à été crée avec succès !");
-		console.printLine("\n\t\t"+bookEditor.getGameBookTitle());
-		if (bookEditor.gameBookisEmpty()) {
+		console.printLine("\n\t\t"+mpModel.getGameBookTitle());
+		if (mpModel.gameBookisEmpty()) {
 			console.printLine("\n\t(Aucun paragraphe)");
 		}
 	}

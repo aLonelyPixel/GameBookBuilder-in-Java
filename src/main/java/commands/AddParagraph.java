@@ -1,16 +1,16 @@
 package commands;
 
-import GameBook.BookEditor;
+import GameBook.MainPresentationModel;
 import consoles.Console;
 import domains.Choice;
 import domains.Paragraph;
 
-public class AddParagraphCommand extends Command{
+public class AddParagraph extends Command{
 
 	final Console console;
-	final BookEditor bookEditor;
+	final MainPresentationModel bookEditor;
 
-	public AddParagraphCommand(final Console console, final BookEditor bookEditor) {
+	public AddParagraph(final Console console, final MainPresentationModel bookEditor) {
 		super("add paragraph", "Adds a paragraph to the GameBook");
 		this.console = console;
 		this.bookEditor = bookEditor;
@@ -39,8 +39,9 @@ public class AddParagraphCommand extends Command{
 			choiceText = console.readLine("Texte de l’action possible (Enter si aucune) : ");
 			if (!"".equals(choiceText)) {
 				String destParagraph = console.readLine("Numéro du paragraphe de destination : ");
+				bookEditor.checkExistingParagraphs(Integer.parseInt(destParagraph));
 				bookEditor.addChoice(choiceOwner, new Choice(bookEditor.getNextChoiceIndex(choiceOwner), choiceText, Integer.parseInt(destParagraph)));
 			}
-		} while ("".equals(choiceText));
+		} while (!choiceText.isBlank());
 	}
 }
