@@ -108,15 +108,7 @@ public class MainPresentationModel implements Iterable<Paragraph>{
 		gameBook.deleteParagraph(deadParagraphIndex);
 	}
 	
-	public Set<Integer> getUnreferencedParagraphs(){
-		return this.validator.getUnreferencedParagraphs(gameBook);
+	public String validateGameBook() {
+		return validator.validate(gameBook);
 	}
-	
-	public Set<Integer> getUnreachableParagraphsFromStart(){
-		return this.validator.getUnreachableParagraphs(gameBook);
-	}
-	
-//	public HashSet<Integer>[] getValidationResults(){
-//		Set<Integer>[] validations = new HashSet<Integer>[2];
-//	}
 }

@@ -1,7 +1,5 @@
 package commands;
 
-import java.util.Set;
-
 import GameBook.MainPresentationModel;
 import consoles.Console;
 
@@ -18,34 +16,10 @@ public class VerifyGameBook extends Command{
 
 	@Override
 	public void execute() {
-		printUnreferencedParagraphs();
-		printUnreachableParagraphs();
-		console.printLine();
-	}
-
-	private void printUnreferencedParagraphs() {
-		console.print("Nœuds absents de toute action : ");
-		Set<Integer> unreferencedParagraphs = mpModel.getUnreferencedParagraphs();
-		if (unreferencedParagraphs.isEmpty()) {
-			console.printLine("aucun noeud");
+		if (mpModel.bookExists()) {
+			console.printLine(mpModel.validateGameBook());
 		}else {
-			printParagraphs(unreferencedParagraphs);
-		}
-	}
-	
-	private void printUnreachableParagraphs() {
-		console.print("Nœuds terminaux inaccessibles à partir du début : ");
-		Set<Integer> unreachableParagraphs = mpModel.getUnreachableParagraphsFromStart();
-		if (unreachableParagraphs.isEmpty()) {
-			console.printLine("aucun noeud");
-		}else {
-			printParagraphs(unreachableParagraphs);
-		}
-	}
-
-	private void printParagraphs(Set<Integer> unreachableParagraphs) {
-		for (Integer paragraph : unreachableParagraphs) {
-			console.print(paragraph + " - ");
+			console.printLine("Vous n'avez pas encore crée de livre");
 		}
 	}
 }
