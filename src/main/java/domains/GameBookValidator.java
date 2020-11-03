@@ -56,7 +56,6 @@ public class GameBookValidator {
 		String firstValidation = "Noeuds absents de toute action : ";
 		if (unreferencedParagraphs.isEmpty()) {
 			firstValidation = firstValidation.concat("aucun noeud");
-			;
 		}else {
 			for (Integer paragraph : unreferencedParagraphs) {
 				firstValidation = firstValidation.concat(Integer.toString(paragraph) + " - ");

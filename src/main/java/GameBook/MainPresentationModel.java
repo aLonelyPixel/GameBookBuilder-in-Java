@@ -5,18 +5,21 @@ import java.util.Set;
 import domains.Choice;
 import domains.GameBook;
 import domains.GameBookValidator;
+import domains.GraphBuilder;
 import domains.Paragraph;
 
 public class MainPresentationModel implements Iterable<Paragraph>{
 	
 	private GameBook gameBook;
 	private GameBookValidator validator;
+	private GraphBuilder graphBuilder;
 	private boolean bookExists;
 	//TODO construire livre hors constructeur
 	public MainPresentationModel(final GameBook gameBook) {
 		this.gameBook = gameBook;
 		this.bookExists = false;
 		this.validator = new GameBookValidator();
+		this.graphBuilder = new GraphBuilder();
 	}
 
 	public boolean bookExists() {
@@ -110,5 +113,9 @@ public class MainPresentationModel implements Iterable<Paragraph>{
 	
 	public String validateGameBook() {
 		return validator.validate(gameBook);
+	}
+
+	public String buildGraph() {
+		return graphBuilder.getGraph(gameBook);
 	}
 }

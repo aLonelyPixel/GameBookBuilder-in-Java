@@ -9,6 +9,7 @@ import commands.ModifyBook;
 import commands.ModifyBookTitle;
 import commands.ModifyParagraph;
 import commands.PrintBook;
+import commands.ShowGraph;
 import commands.VerifyGameBook;
 import consoles.Console;
 import consoles.UserConsole;
@@ -27,7 +28,8 @@ public class Program {
 												new AddParagraph(console, mpModel),
 												new ModifyParagraph(console, mpModel),
 												new DeleteParagraph(console, mpModel),
-												new VerifyGameBook(console, mpModel));//TODO add names and descriptions directly in main program
+												new VerifyGameBook(console, mpModel),
+												new ShowGraph(console, mpModel));//TODO add names and descriptions directly in main program
 		final FrontController frontController = new FrontController(console, maps);
 		frontController.menuLoop();
 	}

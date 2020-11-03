@@ -18,7 +18,7 @@ public class FrontController {
 		String userChoice = "";
 		do {
 			console.printLine("MENU\n");
-			userChoice = console.readLine("1. [C]réer une livre\n2. [M]odifier un livre\n3. [V]érifier un livre\n4. [Q]uitter\n");
+			userChoice = console.readLine("1. [C]réer une livre\n2. [M]odifier un livre\n3. [V]érifier un livre\n4. [A]fficher le graphe\n5. [Q]uitter\n");
 			
 			switch (userChoice.toLowerCase()) {
 			case "c":
@@ -30,6 +30,9 @@ public class FrontController {
 				break;
 			case "v":
 				commandMap.get("verify").execute();
+				break;
+			case "a":
+				commandMap.get("graph").execute();
 				break;
 			case "q":
 				commandMap.get("exit").execute();;
