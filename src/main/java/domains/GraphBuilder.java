@@ -11,64 +11,20 @@ public class GraphBuilder {
 		String allPaths = "";
 		Set<Integer> allParagraphs = gameBook.getParagraphsIndexes();
 		for (Integer paragraph : allParagraphs) {
-			List<Set<Integer>> currentParagraphsPaths = new ArrayList<Set<Integer>>();
-			currentParagraphsPaths = getAllEndingsFromStart(paragraph, gameBook, currentParagraphsPaths);
+			List<Set<Integer>> currentParagraphsPaths = getAllEndingsFromParagraph(paragraph, gameBook);
 			allPaths += formatPath(currentParagraphsPaths);
-//			allPaths += formatPath(currentPath) + "\n";
 		}
-		return allPaths + "";
+		return allPaths;
 	}
 
-	private String formatPath(List<Set<Integer>> currentParagraphPaths) {
-		String allCurrentParagraphPaths = "";
-		for (Set<Integer> path : currentParagraphPaths) {
-			String[] values = new String[path.size()];
-			int index = 0;
-			String formattedPath = "";
-			for (Integer step : path) {
-				values[index] = Integer.toString(step);
-				index++;
-			}
-			for (int i = 0; i < values.length-1; i++) {
-				formattedPath = formattedPath.concat("§" + values[i] + " -> ");
-			}
-			formattedPath += "§" + values[values.length-1];
-			allCurrentParagraphPaths += formattedPath + "\n";
+	private List<Set<Integer>> getAllEndingsFromParagraph(int startingParagraph, GameBook gamebook) {
+		if (gamebook.isTerminalParagraph(startingParagraph)) {
+			return getTerminalParagraph(startingParagraph);
 		}
 		
-		return allCurrentParagraphPaths;
-	}
-
-//	private List<Set<Integer>> getAllEndingsFromStart(int startingParagraph, GameBook gamebook, List<Set<Integer>> currentPath) {
-//		Set<Integer> currentDestinations = gamebook.getChoicesDestinations(startingParagraph);
-//		Set<Integer> veryCurrentPath = new HashSet<>();
-//		veryCurrentPath.add(startingParagraph);
-//		currentPath.add(veryCurrentPath);
-//		for (Integer destination : currentDestinations) {
-//			if (gamebook.isTerminalParagraph(destination)) {
-//				currentPath.get(startingParagraph).add(destination);
-//				return currentPath;
-//			}else {
-//				Set<Integer> anotherCurrentPath = new HashSet<>();
-//				anotherCurrentPath.addAll(veryCurrentPath);
-//				currentPath.add(anotherCurrentPath);
-//				getAllEndingsFromStart(destination, gamebook, currentPath);
-//			}
-//		}
-//		return currentPath;
-//	}
-	
-	private List<Set<Integer>> getAllEndingsFromStart(int startingParagraph, GameBook gamebook, List<Set<Integer>> currentPath) {
 		List<Set<Integer>> allPathsFromHere = new ArrayList<Set<Integer>>();
 		Set<Integer> currentDestinations = gamebook.getChoicesDestinations(startingParagraph);
 		
-		if (currentDestinations.isEmpty()) {
-			List<Set<Integer>> terminalParagraphs = new ArrayList<Set<Integer>>();
-			Set<Integer> thisTerminalParagraph = new HashSet<>();
-			thisTerminalParagraph.add(startingParagraph);
-			terminalParagraphs.add(thisTerminalParagraph);
-			return terminalParagraphs;
-		}
 		for (Integer destination : currentDestinations) {
 			Set<Integer> thisPath = new HashSet<>();
 			thisPath.add(startingParagraph);
@@ -76,7 +32,7 @@ public class GraphBuilder {
 			if (gamebook.isTerminalParagraph(destination)) {
 				thisPath.add(destination);
 			}else {
-				List<Set<Integer>> newlyGot = getAllEndingsFromStart(destination, gamebook, currentPath);
+				List<Set<Integer>> newlyGot = getAllEndingsFromParagraph(destination, gamebook);
 				if (newlyGot.size() == 1) {
 					thisPath.addAll(newlyGot.get(0));
 				}
@@ -96,22 +52,33 @@ public class GraphBuilder {
 		}
 		return allPathsFromHere;
 	}
-	
-	
+
+	private List<Set<Integer>> getTerminalParagraph(int startingParagraph) {
+		List<Set<Integer>> terminalParagraphs = new ArrayList<Set<Integer>>();
+		Set<Integer> thisTerminalParagraph = new HashSet<>();
+		thisTerminalParagraph.add(startingParagraph);
+		terminalParagraphs.add(thisTerminalParagraph);
+		return terminalParagraphs;
+	}
 	
 	//TODO To be greatly optimized, this is just stupid (but hey, it works...)
-//	private String formatPath(Set<Integer> currentPath) {
-//		String[] values = new String[currentPath.size()];
-//		int index = 0;
-//		String formattedPath = "";
-//		for (Integer step : currentPath) {
-//			values[index] = Integer.toString(step);
-//			index++;
-//		}
-//		for (int i = 0; i < values.length-1; i++) {
-//			formattedPath = formattedPath.concat("§" + values[i] + " -> ");
-//		}
-//		formattedPath += "§" + values[values.length-1];
-//		return formattedPath;
-//	}
+	private String formatPath(List<Set<Integer>> currentParagraphPaths) {
+		String allCurrentParagraphPaths = "";
+		for (Set<Integer> path : currentParagraphPaths) {
+			String[] values = new String[path.size()];
+			int index = 0;
+			String formattedPath = "";
+			for (Integer step : path) {
+				values[index] = Integer.toString(step);
+				index++;
+			}
+			for (int i = 0; i < values.length-1; i++) {
+				formattedPath = formattedPath.concat("§" + values[i] + " -> ");
+			}
+			formattedPath += "§" + values[values.length-1];
+			allCurrentParagraphPaths += formattedPath + "\n";
+		}
+		
+		return allCurrentParagraphPaths;
+	}
 }
