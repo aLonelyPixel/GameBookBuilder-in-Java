@@ -1,6 +1,8 @@
 package GameBook;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import domains.Choice;
 import domains.GameBook;
@@ -52,6 +54,15 @@ public class MainPresentationModel implements Iterable<Paragraph>{
 		return gameBook.getParagraphsIndexes();
 	}
 	
+	public List<String> getStringOfParagraphsIndexes() {
+		List<String> indexesInString = new ArrayList<>();
+		Set<Integer> indexes = getParagraphsIndexes();
+		for (Integer index : indexes) {
+			indexesInString.add(String.valueOf(index));
+		}
+		return indexesInString;
+	}
+	
 	public int getMaxParagraphIndex() {
 		return gameBook.getMaxParagraphIndex();
 	}
@@ -60,22 +71,27 @@ public class MainPresentationModel implements Iterable<Paragraph>{
 		return gameBook.getParagraphText(paragraphIndex);
 	}
 	
-	public void addParagraph(final int index, final Paragraph newParagraph) {
-		gameBook.addParagraph(index, newParagraph);
+	public String addParagraph(int index, final Paragraph newParagraph) {
+		if (index == 0 || index > getMaxParagraphIndex()) {
+			index = getMaxParagraphIndex()+1;
+			newParagraph.setIndex(index);
+		}
+		return gameBook.addParagraph(index, newParagraph);
 	}
 	
 	public void addChoice(final int choiceOwner, final Choice newChoice) {
 		gameBook.addChoice(choiceOwner, newChoice);
 	}
 	
-	public int getNextChoiceIndex(final int paragraphIndex) {
-		return gameBook.getMaxChoiceIndexForParagraph(paragraphIndex);
-	}
+//	public int getNextChoiceIndex(final int paragraphIndex) {
+//		return gameBook.getMaxChoiceIndexForParagraph(paragraphIndex);
+//	}
 
-	public void checkExistingParagraphs(int searchedParagraph) {
+	public List<String> checkExistingParagraphs(int searchedParagraph) {
 		if (!gameBook.containsParagraph(searchedParagraph)) {
 			gameBook.addParagraph(searchedParagraph, new Paragraph(searchedParagraph, "todo - "));
 		}
+		return getParagraphsList();
 	}
 
 	public void setParagraphText(int paragraphIndex, String newText) {
@@ -85,9 +101,17 @@ public class MainPresentationModel implements Iterable<Paragraph>{
 	public Set<Choice> getChoices(final int paragraphIndex) {
 		return gameBook.getChoices(paragraphIndex);
 	}
+	
+	public List<String> getChoicesList(final int paragraphIndex) {
+		return gameBook.getChoicesList(paragraphIndex);
+	}
 
 	public void setChoiceText(int paragraphIndex, Choice currentChoice, String userChoice) {
 		gameBook.setChoiceText(paragraphIndex, currentChoice, userChoice);
+	}
+	
+	public void setChoiceText(int paragraphIndex, String choice, String newText, int newDestParagraph) {
+		gameBook.setChoiceText(paragraphIndex, choice, newText, newDestParagraph);
 	}
 
 	public void setChoiceDestParagraph(int paragraphIndex, Choice currentChoice, int newDestParagraph) {
@@ -96,6 +120,10 @@ public class MainPresentationModel implements Iterable<Paragraph>{
 
 	public void deleteChoice(int paragraphIndex, Choice choice) {
 		gameBook.deleteChoice(paragraphIndex, choice);
+	}
+	
+	public void deleteChoice(int paragraphIndex, String choiceText, int choiceDestParagraph) {
+		gameBook.deleteChoice(paragraphIndex, choiceText, choiceDestParagraph);
 	}
 
 	/**
@@ -117,5 +145,17 @@ public class MainPresentationModel implements Iterable<Paragraph>{
 
 	public String buildGraph() {
 		return graphBuilder.getGraph(gameBook);
+	}
+	
+	public List<String> getParagraphsList(){
+		return gameBook.getParagraphsList();
+	}
+
+	public boolean containsChoice(int paragraphIndex, String choice) {
+		return gameBook.containsChoice(paragraphIndex, choice);
+	}
+
+	public int getChoiceDestinationParagraph(int choiceOwner, String choice) {
+		return gameBook.getChoiceDestinationParagraph(choiceOwner, choice);
 	}
 }

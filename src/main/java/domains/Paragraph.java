@@ -49,15 +49,15 @@ public class Paragraph implements Iterable<Choice>{
 		choices.add(newChoice);
 	}
 	
-	public int getMaxChoiceIndex() {
-		int maxIndex = 1;
-		for (Choice choice : choices) {
-			if (choice.getIndex() > maxIndex) {
-				maxIndex = choice.getIndex();
-			}
-		}
-		return maxIndex;
-	}
+//	public int getMaxChoiceIndex() {
+//		int maxIndex = 1;
+//		for (Choice choice : choices) {
+//			if (choice.getIndex() > maxIndex) {
+//				maxIndex = choice.getIndex();
+//			}
+//		}
+//		return maxIndex;
+//	}
 
 	@Override
 	public Iterator<Choice> iterator() {
@@ -69,6 +69,14 @@ public class Paragraph implements Iterable<Choice>{
 		return choices;
 	}
 
+	public List<String> getChoicesTexts() {
+		List<String> choicesList = new ArrayList<>();
+		for (Choice choice : this.choices) {
+			choicesList.add(choice.getText() + " (dest. " + choice.getDestParagraph() + ")");
+		}
+		return choicesList;
+	}
+	
 	public void moveChoicesUp(int newParagraphIndex) {
 		for (Choice choice : choices) {
 			if (choice.getDestParagraph() >= newParagraphIndex) {
@@ -84,6 +92,16 @@ public class Paragraph implements Iterable<Choice>{
 			}
 		}
 	}
+	
+	public void setChoiceText(String choice, String newText, int newDestParagraph) {
+		for (Choice thisChoice : choices) {
+			if (thisChoice.toString().equals(choice)) {
+				thisChoice.setText(newText);
+				thisChoice.setDestParagraph(newDestParagraph);
+			}
+		}
+	}
+	
 	//TODO méthodes très similaires, à fondre en une seule ^^
 	public void setChoiceDestParagraph(Choice currentChoice, int newDestParagraph) {
 		for (Choice choice : choices) {
@@ -97,6 +115,24 @@ public class Paragraph implements Iterable<Choice>{
 		if (choices.contains(choice)) {
 			choices.remove(choice);
 		}
+	}
+
+	public void deleteChoice(String choiceText, int choiceDestParagraph) {
+		if (containsChoice(choiceText)) {
+			choices.remove(getOriginalChoice(choiceText, choiceDestParagraph));
+		}else {
+			System.out.println("it does not");
+		}
+		
+	}
+	
+	private Choice getOriginalChoice(String choiceText, int choiceDestParagraph) {
+		for (Choice choice : choices) {
+			if (choice.toString().equals(choiceText) && choice.getDestParagraph() == choiceDestParagraph) {
+				return choice;
+			}
+		}
+		return null;
 	}
 
 	public void deleteMatchingChoices(int dyingParagraph) {
@@ -134,5 +170,23 @@ public class Paragraph implements Iterable<Choice>{
 			destinations.add(choice.getDestParagraph());
 		}
 		return destinations;
+	}
+
+	public boolean containsChoice(String choice) {
+		for (Choice thisChoice : choices) {
+			if (thisChoice.toString().equals(choice) && thisChoice.getDestParagraph() == Integer.parseInt(choice.substring(choice.length()-2, choice.length()-1))) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public int getChoiceDestinationParagraph(String choice) {
+		for (Choice thisChoice : choices) {
+			if (thisChoice.toString().equals(choice) && thisChoice.getDestParagraph() == Integer.parseInt(choice.substring(choice.length()-2, choice.length()-1))) {
+				return thisChoice.getDestParagraph();
+			}
+		}
+		return -1;
 	}
 }

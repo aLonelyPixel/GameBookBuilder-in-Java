@@ -44,6 +44,10 @@ public class GameBook implements Iterable<Paragraph>{
 		return paragraphMap.get(paragraphIndex).getChoices();
 	}
 	
+	public List<String> getChoicesList(final int paragraphIndex) {
+		return paragraphMap.get(paragraphIndex).getChoicesTexts();
+	}
+	
 	public String getParagraphText(final int paragraphIndex) {
 		return paragraphMap.get(paragraphIndex).getParagraphText();
 	}
@@ -64,7 +68,8 @@ public class GameBook implements Iterable<Paragraph>{
 		}
 	}
 	
-	public void addParagraph(final int index, final Paragraph newParagraph) {
+	public String addParagraph(int index, Paragraph newParagraph) {
+		if(newParagraph.getParagraphText().isBlank()) newParagraph.setParagraphText("todo - ");
 		if (paragraphMap.containsKey(index)) {
 			if (!paragraphMap.get(index).getParagraphText().equals("todo - ")) {
 				adjustChoicesOnAdd(index);
@@ -72,6 +77,7 @@ public class GameBook implements Iterable<Paragraph>{
 			}
 		}
 		paragraphMap.put(index, newParagraph);
+		return String.valueOf(index) + ". " + paragraphMap.get(index).getParagraphText();
 	}
 	
 	private void adjustParagraphsOnAdd(final int newKey) {
@@ -126,9 +132,9 @@ public class GameBook implements Iterable<Paragraph>{
 		return paragraphMap.containsKey(searchedParagraph);
 	}
 	
-	public int getMaxChoiceIndexForParagraph(int paragraphIndex) {
-		return paragraphMap.get(paragraphIndex).getMaxChoiceIndex();
-	}
+//	public int getMaxChoiceIndexForParagraph(int paragraphIndex) {
+//		return paragraphMap.get(paragraphIndex).getMaxChoiceIndex();
+//	}
 
 	public void setParagraphText(int paragraphIndex, String newText) {
 		if (paragraphMap.containsKey(paragraphIndex)) {
@@ -139,6 +145,10 @@ public class GameBook implements Iterable<Paragraph>{
 	public void setChoiceText(int paragraphIndex, Choice currentChoice, String userChoice) {
 		paragraphMap.get(paragraphIndex).setChoiceText(currentChoice, userChoice);
 	}
+	
+	public void setChoiceText(int paragraphIndex, String choice, String newText, int newDestParagraph) {
+		paragraphMap.get(paragraphIndex).setChoiceText(choice, newText, newDestParagraph);
+	}
 
 	public void setChoiceDestParagraph(int paragraphIndex, Choice currentChoice, int newDestParagraph) {
 		paragraphMap.get(paragraphIndex).setChoiceDestParagraph(currentChoice, newDestParagraph);		
@@ -148,6 +158,10 @@ public class GameBook implements Iterable<Paragraph>{
 		paragraphMap.get(paragraphIndex).deleteChoice(choice);
 	}
 
+	public void deleteChoice(int paragraphIndex, String choiceText, int choiceDestParagraph) {
+		paragraphMap.get(paragraphIndex).deleteChoice(choiceText, choiceDestParagraph);
+	}
+	
 	public void deleteParagraph(int deadParagraphIndex) {
 		deleteAllChoicesToParagraph(deadParagraphIndex);
 		paragraphMap.remove(deadParagraphIndex);
@@ -179,5 +193,21 @@ public class GameBook implements Iterable<Paragraph>{
 	
 	public boolean isTerminalParagraph(int paragraphIndex) {
 		return paragraphMap.get(paragraphIndex).isTerminalParagraph();
+	}
+
+	public List<String> getParagraphsList() {
+		List<String> paragraphsList = new ArrayList<>();
+		for (Entry<Integer, Paragraph> paragraph : paragraphMap.entrySet()) {
+			paragraphsList.add(paragraph.getKey() + ". " + paragraph.getValue().getParagraphText());
+		}
+		return paragraphsList;
+	}
+
+	public boolean containsChoice(int paragraphIndex, String choice) {
+		return paragraphMap.get(paragraphIndex).containsChoice(choice);
+	}
+
+	public int getChoiceDestinationParagraph(int choiceOwner, String choice) {
+		return paragraphMap.get(choiceOwner).getChoiceDestinationParagraph(choice);
 	}
 }

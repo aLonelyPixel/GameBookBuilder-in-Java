@@ -186,14 +186,14 @@ class GameBookTest {
 		assertFalse(game.containsParagraph(2));
 	}
 	
-	@Test
-	void getMaxChoiceForAParagraph() {
-		Paragraph p1 = mock(Paragraph.class);
-		game.addParagraph(1, p1);
-		game.getMaxChoiceIndexForParagraph(1);
-
-		verify(p1).getMaxChoiceIndex();
-	}
+//	@Test
+//	void getMaxChoiceForAParagraph() {
+//		Paragraph p1 = mock(Paragraph.class);
+//		game.addParagraph(1, p1);
+//		game.getMaxChoiceIndexForParagraph(1);
+//
+//		verify(p1).getMaxChoiceIndex();
+//	}
 	
 	@Test
 	void setsNewTextToParagraph() {
@@ -204,4 +204,33 @@ class GameBookTest {
 		
 		verify(p1).setParagraphText("hello there");
 	}
+	
+	@Test
+	void equalsText() {
+		String text = "a (dest. 1)";
+		GameBook game = new GameBook("test");
+		Paragraph p = new Paragraph(1, "yes");
+		Choice c = new Choice("a", 1);
+		game.addParagraph(1, p);
+		p.addChoice(c);
+		System.out.println(game.getChoicesList(1) + "\n " + text);
+		System.out.println(text.substring(text.length()-2, text.length()-1));
+
+		assertTrue(game.containsChoice(1, text));
+		
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
