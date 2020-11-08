@@ -2,6 +2,7 @@ package domains;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public class GraphBuilder {
 		Set<Integer> currentDestinations = gamebook.getChoicesDestinations(startingParagraph);
 		
 		for (Integer destination : currentDestinations) {
-			Set<Integer> thisPath = new HashSet<>();
+			Set<Integer> thisPath = new LinkedHashSet<>(); //LinkedHashSet because insertion order has to be preserved
 			thisPath.add(startingParagraph);
 			allPathsFromHere.add(thisPath);
 			if (gamebook.isTerminalParagraph(destination)) {

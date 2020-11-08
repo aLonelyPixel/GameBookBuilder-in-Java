@@ -5,6 +5,7 @@ C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\ma
 C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\main\java\commands\Command.java
 C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\main\java\commands\ModifyParagraph.java
 C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\main\java\GameBook\MainPresentationModel.java
+C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\main\java\view\GameBookGraphAndValidation.java
 C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\main\java\domains\GameBookValidator.java
 C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\main\java\commands\CommandMap.java
 C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\main\java\domains\GameBook.java
@@ -17,7 +18,6 @@ C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\ma
 C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\main\java\commands\VerifyGameBook.java
 C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\main\java\domains\Paragraph.java
 C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\main\java\consoles\Console.java
-C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\main\java\view\GameBookValidation.java
 C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\main\java\commands\CreateBook.java
 C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\main\java\GameBook\FrontController.java
 C:\Users\andre\Desktop\2020-2021\Java\Eclipse_DalMolin_Andrea_GameBookGUI\src\main\java\commands\Exit.java

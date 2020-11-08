@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class GameBookValidation {
+public class GameBookGraphAndValidation {
 	
 //	@FXML
 //	private Label message;

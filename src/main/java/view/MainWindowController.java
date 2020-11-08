@@ -67,6 +67,8 @@ public class MainWindowController implements Initializable {
 	private HBox choiceEditor;
 	@FXML
 	private MenuItem validateBook;
+	@FXML
+	private MenuItem getGraph;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -211,7 +213,13 @@ public class MainWindowController implements Initializable {
 	
 	@FXML
 	private void validateBook() throws IOException {
-		GameBookValidation validation = new GameBookValidation();
+		GameBookGraphAndValidation validation = new GameBookGraphAndValidation();
 		validation.display("Validation du livre", mpModel.validateGameBook());
+	}
+	
+	@FXML
+	private void getGraph() throws IOException {
+		GameBookGraphAndValidation graph = new GameBookGraphAndValidation();
+		graph.display("Graphe du livre", mpModel.buildGraph());
 	}
 }
