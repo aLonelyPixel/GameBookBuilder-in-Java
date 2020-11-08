@@ -16,6 +16,7 @@ public class MainPresentationModel implements Iterable<Paragraph>{
 	private GameBookValidator validator;
 	private GraphBuilder graphBuilder;
 	private boolean bookExists;
+	
 	//TODO construire livre hors constructeur
 	public MainPresentationModel(final GameBook gameBook) {
 		this.gameBook = gameBook;

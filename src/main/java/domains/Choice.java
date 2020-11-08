@@ -6,6 +6,11 @@ public class Choice {
 	private String text;
 	private int destParagraph;
 	
+	/**
+	 * Construit un objet Choice avec les données en paramètre
+	 * @param text
+	 * @param destParagraph
+	 */
 	public Choice(final String text, final int destParagraph) {
 //		this.index = (index < 0) ? 0 : index;
 		this.text = text;
@@ -36,11 +41,19 @@ public class Choice {
 		this.destParagraph = destParagraph;
 	}
 
+	/**
+	 * Shifts back once (-1) the destination paragraph
+	 */
 	public void shiftBackDestParagraph() {
-		this.destParagraph--;
+		if (this.destParagraph > 1) {
+			this.destParagraph--;
+		}
 	}
 
 	@Override
+	/**
+	 * Formats the Choice in a String
+	 */
 	public String toString() {
 		return this.text + " (dest. " + destParagraph + ")";
 	}

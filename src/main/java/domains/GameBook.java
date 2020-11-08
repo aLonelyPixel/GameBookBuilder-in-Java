@@ -10,12 +10,27 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+/**
+ * This class defines all the properties and methods of a GameBook object.
+ * A GameBook is defined by its title and its paragraphs. To store the paragraphs
+ * I've chosen to use a Map. This is because I wanted to easily retrieve a 
+ * paragraph by its index, so a key-value type of Collection was the most
+ * adapted one. Furthermore, this will allow in future versions of the code, to
+ * get rid of the paragraph index in the Paragraph itself, because at the moment
+ * it is indeed rudundant.
+ * As for the implementation of the Map, I've used a HashMap, because the order
+ * of the paragraphs is not important, so I excluded the LinkedHashMap and the
+ * other implementation. A WeakHashMap would also be quite similar to the HashMap.
+ * 
+ * @author Andrea Dal Molin
+ *
+ */
 public class GameBook implements Iterable<Paragraph>{
 
 	private final String bookTitle;
 	private final Map<Integer, Paragraph> paragraphMap;
-	//TODO suppress index in paragraph and adapt code
 	
+	//TODO suppress index in paragraph and adapt code
 	public GameBook(final String bookTitle) {
 		this.bookTitle = bookTitle;
 		paragraphMap = new HashMap<Integer, Paragraph>();
@@ -40,6 +55,13 @@ public class GameBook implements Iterable<Paragraph>{
 		return paragraphMap.size();
 	}
 	
+	/**
+	 * This method fetches all the choices for a specific paragraph using the
+	 * submethod in the Paragraph class. The reason for the choice of collection
+	 * is explained in the submethod
+	 * @param paragraphIndex the paragraph from which the choices have to be collected.
+	 * @return a Set of choices 
+	 */
 	public Set<Choice> getChoices(final int paragraphIndex) {
 		return paragraphMap.get(paragraphIndex).getChoices();
 	}
@@ -52,6 +74,13 @@ public class GameBook implements Iterable<Paragraph>{
 		return paragraphMap.get(paragraphIndex).getParagraphText();
 	}
 	
+	/**
+	 * This methode returns, in the form of an HashSet all the indexes of the
+	 * paragraphs in the book. Even if unlikely, we want to unsure there aren't 
+	 * double values, hence the choice of a Set, which prevents that. Its add
+	 * time is also efficient (O(1))
+	 * @return a Set containing all the indexes of the paragraphs in the book
+	 */
 	public Set<Integer> getParagraphsIndexes(){
 		Set<Integer> paragraphsIndexes = new HashSet<>();
 		for (Integer paragraphIndex : paragraphMap.keySet()) {
@@ -60,6 +89,10 @@ public class GameBook implements Iterable<Paragraph>{
 		return paragraphsIndexes;
 	}
 	
+	/**
+	 * This method gets the highest paragraph index
+	 * @return the highest index in the book
+	 */
 	public int getMaxParagraphIndex() {
 		if (isEmpty()) {
 			return 0;
@@ -68,6 +101,12 @@ public class GameBook implements Iterable<Paragraph>{
 		}
 	}
 	
+	/**
+	 * Adds a paragraph to the book
+	 * @param index
+	 * @param newParagraph
+	 * @return
+	 */
 	public String addParagraph(int index, Paragraph newParagraph) {
 		if(newParagraph.getParagraphText().isBlank()) newParagraph.setParagraphText("todo - ");
 		if (paragraphMap.containsKey(index)) {

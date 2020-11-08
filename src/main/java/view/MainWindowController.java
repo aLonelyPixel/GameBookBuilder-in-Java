@@ -1,5 +1,6 @@
 package view;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import GameBook.MainPresentationModel;
@@ -13,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
@@ -26,19 +28,17 @@ public class MainWindowController implements Initializable {
 	@FXML
 	private TextField bookTitle;	
 	@FXML
-	private Button saveBookTitle;
+	private TextField newParagraphIndex;
 	@FXML
-	private Button addParagraphButton;
+	private TextField newChoiceText;
+	@FXML
+	private TextField choiceText;
 	@FXML
 	private TextArea newParagraphText;
 	@FXML
-	private ListView<String> paragraphsList;
-	@FXML
-	private ListView<String> actionsList;
-	@FXML
-	private TextField newParagraphIndex;
-	@FXML
 	private TextArea paragraphContent;
+	@FXML
+	private Button saveBookTitle;
 	@FXML
 	private Button saveParagraphContent;
 	@FXML
@@ -46,23 +46,27 @@ public class MainWindowController implements Initializable {
 	@FXML
 	private Button addNewChoice;
 	@FXML
-	private ComboBox<Integer> newDestination;
-	@FXML
-	private TextField newChoiceText;
+	private Button addParagraphButton;
 	@FXML
 	private Button newChoice;
 	@FXML
 	private Button deleteChoiceButton;
 	@FXML
+	private Button saveChoice;
+	@FXML
 	private VBox newActionBox;
 	@FXML
-	private TextField choiceText;
+	private ListView<String> paragraphsList;
+	@FXML
+	private ListView<String> actionsList;
+	@FXML
+	private ComboBox<Integer> newDestination;
 	@FXML
 	private ComboBox<Integer> possibleDestinations;
 	@FXML
-	private Button saveChoice;
-	@FXML
 	private HBox choiceEditor;
+	@FXML
+	private MenuItem validateBook;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -203,5 +207,11 @@ public class MainWindowController implements Initializable {
 									newDestParagraph);
 			refresh();
 		}
+	}
+	
+	@FXML
+	private void validateBook() throws IOException {
+		GameBookValidation validation = new GameBookValidation();
+		validation.display("Validation du livre", mpModel.validateGameBook());
 	}
 }

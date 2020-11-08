@@ -31,6 +31,8 @@ class GameBookTest {
 	void getsCorrectParagraph() {
 		Paragraph p1 = mock(Paragraph.class);
 		Paragraph p2 = mock(Paragraph.class);
+		when(p1.getParagraphText()).thenReturn("p1");
+		when(p2.getParagraphText()).thenReturn("p2");
 		
 		game.addParagraph(1, p1);
 		game.addParagraph(2, p2);
@@ -47,6 +49,9 @@ class GameBookTest {
 		Paragraph p1 = mock(Paragraph.class);
 		Paragraph p2 = mock(Paragraph.class);
 		Paragraph p3 = mock(Paragraph.class);
+		when(p1.getParagraphText()).thenReturn("p1");
+		when(p2.getParagraphText()).thenReturn("p2");
+		when(p3.getParagraphText()).thenReturn("p3");
 		
 		game.addParagraph(1, p1);
 		game.addParagraph(2, p2);
@@ -77,6 +82,8 @@ class GameBookTest {
 	void getsChoiceCollection() {
 		Paragraph p1 = mock(Paragraph.class);
 		Paragraph p2 = mock(Paragraph.class);
+		when(p1.getParagraphText()).thenReturn("p1");
+		when(p2.getParagraphText()).thenReturn("p2");
 		
 		game.addParagraph(1, p1);
 		game.addParagraph(2, p2);
@@ -90,6 +97,9 @@ class GameBookTest {
 		Paragraph p1 = mock(Paragraph.class);
 		Paragraph p2 = mock(Paragraph.class);
 		Paragraph p3 = mock(Paragraph.class);
+		when(p1.getParagraphText()).thenReturn("p1");
+		when(p2.getParagraphText()).thenReturn("p2");
+		when(p3.getParagraphText()).thenReturn("p3");
 		game.addParagraph(1, p1);
 		game.addParagraph(365, p2);
 		game.addParagraph(5, p3);
@@ -140,7 +150,7 @@ class GameBookTest {
 		game.addParagraph(2, p2);
 		game.addParagraph(2, p3);
 
-		verify(p2).getParagraphText();
+		verify(p2, times(3)).getParagraphText();
 	}
 	
 	@Test
@@ -148,6 +158,8 @@ class GameBookTest {
 		Choice c1 = mock(Choice.class);
 		Paragraph p1 = mock(Paragraph.class);
 		Paragraph p2 = mock(Paragraph.class);
+		when(p1.getParagraphText()).thenReturn("p1");
+		when(p2.getParagraphText()).thenReturn("p2");
 		
 		game.addParagraph(1, p1);
 		game.addParagraph(2, p2);
@@ -159,6 +171,7 @@ class GameBookTest {
 	@Test
 	void paragraphIterator() {
 		Paragraph p1 = mock(Paragraph.class);
+		when(p1.getParagraphText()).thenReturn("p1");
 		game.addParagraph(1, p1);
 		Iterator<Paragraph> it = game.iterator();
 
@@ -170,6 +183,7 @@ class GameBookTest {
 	@Test
 	void choiceIteratorForAParagraph() {
 		Paragraph p1 = mock(Paragraph.class);
+		when(p1.getParagraphText()).thenReturn("p1");
 		game.addParagraph(1, p1);
 		@SuppressWarnings("unused")
 		Iterator<Choice> it = game.choiceIterator(1);
@@ -180,6 +194,7 @@ class GameBookTest {
 	@Test
 	void bookContainsParagraph() {
 		Paragraph p1 = mock(Paragraph.class);
+		when(p1.getParagraphText()).thenReturn("p1");
 		game.addParagraph(1, p1);
 
 		assertTrue(game.containsParagraph(1));
@@ -187,17 +202,19 @@ class GameBookTest {
 	}
 	
 //	@Test
-//	void getMaxChoiceForAParagraph() {
+//	void getChoicesList() {
 //		Paragraph p1 = mock(Paragraph.class);
-//		game.addParagraph(1, p1);
-//		game.getMaxChoiceIndexForParagraph(1);
-//
-//		verify(p1).getMaxChoiceIndex();
+//		
+//		
+//		List<String> list = game.getChoicesList(1);
+//		
+//		assertEquals(3, list.size());
 //	}
 	
 	@Test
 	void setsNewTextToParagraph() {
 		Paragraph p1 = mock(Paragraph.class);
+		when(p1.getParagraphText()).thenReturn("p1");
 		game.addParagraph(1, p1);
 		game.setParagraphText(1, "hello there");
 		game.setParagraphText(2, "hohoho");
@@ -205,22 +222,22 @@ class GameBookTest {
 		verify(p1).setParagraphText("hello there");
 	}
 	
-	@Test
-	void equalsText() {
-		String text = "a (dest. 1)";
-		GameBook game = new GameBook("test");
-		Paragraph p = new Paragraph(1, "yes");
-		Choice c = new Choice("a", 1);
-		game.addParagraph(1, p);
-		p.addChoice(c);
-		System.out.println(game.getChoicesList(1) + "\n " + text);
-		System.out.println(text.substring(text.length()-2, text.length()-1));
+//	@Test
+//	void equalsText() {
+//		String text = "a (dest. 1)";
+//		GameBook game = new GameBook("test");
+//		Paragraph p = new Paragraph(1, "yes");
+//		Choice c = new Choice("a", 1);
+//		game.addParagraph(1, p);
+//		p.addChoice(c);
+//		System.out.println(game.getChoicesList(1) + "\n " + text);
+//		System.out.println(text.substring(text.length()-2, text.length()-1));
+//
+//		assertTrue(game.containsChoice(1, text));
+//		
+//	}
 
-		assertTrue(game.containsChoice(1, text));
-		
-	}
-
-
+	
 
 
 

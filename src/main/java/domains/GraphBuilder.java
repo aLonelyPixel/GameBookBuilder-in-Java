@@ -8,6 +8,9 @@ import java.util.Set;
 public class GraphBuilder {
 
 	public String getGraph(GameBook gameBook) {
+		if (gameBook.isEmpty()) {
+			return "Le livre est vide";
+		}
 		String allPaths = "";
 		Set<Integer> allParagraphs = gameBook.getParagraphsIndexes();
 		for (Integer paragraph : allParagraphs) {
