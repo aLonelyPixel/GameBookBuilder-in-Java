@@ -3,6 +3,8 @@ package domains;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+import model.Choice;
+
 class ChoiceTest {
 	
 	private Choice choice;

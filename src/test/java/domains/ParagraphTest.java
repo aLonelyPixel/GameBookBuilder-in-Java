@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
+import model.Choice;
+import model.Paragraph;
+
 class ParagraphTest {
 	
 	private Paragraph paragraph;
@@ -64,8 +67,8 @@ class ParagraphTest {
 		setUpParagraph();
 		assertEquals(3, paragraph.getChoices().size());
 		
-		Choice c = mock(Choice.class);
-		paragraph.addChoice(c);
+//		Choice c = mock(Choice.class);
+//		paragraph.addChoice(c);
 		assertEquals(4, paragraph.getChoices().size());
 	}
 	
@@ -152,7 +155,7 @@ class ParagraphTest {
 		setUpParagraph();
 		Choice c4 = mock(Choice.class);
 		when(c4.getText()).thenReturn("text");
-		paragraph.addChoice(c4);
+//		paragraph.addChoice(c4);
 		paragraph.setChoiceText(c4, "moddedText");
 		
 		verify(c4).setText("moddedText");
@@ -163,7 +166,7 @@ class ParagraphTest {
 		setUpParagraph();
 		Choice c4 = mock(Choice.class);
 		when(c4.toString()).thenReturn("text (dest. 4)");
-		paragraph.addChoice(c4);
+//		paragraph.addChoice(c4);
 		paragraph.setChoiceText("text (dest. 4)", "new text", 5);
 		
 		verify(c4).setText("new text");
@@ -174,7 +177,7 @@ class ParagraphTest {
 		setUpParagraph();
 		Choice c4 = mock(Choice.class);
 		when(c4.getDestParagraph()).thenReturn(4);
-		paragraph.addChoice(c4);
+//		paragraph.addChoice(c4);
 		paragraph.setChoiceDestParagraph(c4, 3);
 		
 		verify(c4).setDestParagraph(3);
@@ -187,7 +190,7 @@ class ParagraphTest {
 		Choice c5 = mock(Choice.class);
 		when(c4.getText()).thenReturn("choice fake");
 		when(c4.getDestParagraph()).thenReturn(4);
-		paragraph.addChoice(c4);
+//		paragraph.addChoice(c4);
 		List<String> list = paragraph.getChoicesTexts();
 		
 		assertTrue(list.contains("choice fake (dest. 4)"));
@@ -213,7 +216,7 @@ class ParagraphTest {
 		when(c5.getDestParagraph()).thenReturn(5);
 		when(c5.toString()).thenReturn("choice fake (dest. 4)");
 
-		paragraph.addChoice(c4);
+//		paragraph.addChoice(c4);
 		List<String> list = paragraph.getChoicesTexts();
 		
 		assertTrue(list.contains("choice fake (dest. 4)"));
@@ -243,7 +246,7 @@ class ParagraphTest {
 		when(c4.getText()).thenReturn("choice 1");
 		when(c4.getDestParagraph()).thenReturn(3);
 		when(c4.toString()).thenReturn("choice 3 (dest. 3)");
-		paragraph.addChoice(c4);
+//		paragraph.addChoice(c4);
 		paragraph.adjustChoicesOnRemoval(2);
 		paragraph.adjustChoicesOnRemoval(6);
 		verify(c4).shiftBackDestParagraph();
